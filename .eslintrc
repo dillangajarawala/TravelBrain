@@ -28,9 +28,11 @@
 		"@typescript-eslint/explicit-member-accessibility": "off",
 		"@typescript-eslint/interface-name-prefix": "off",
 		"@typescript-eslint/ban-types": "off",
+		"@typescript-eslint/no-empty-function": "off",
 
 		"import/prefer-default-export": "off",
 		"class-methods-use-this": "off",
-		"no-console": "off"
+		"no-console": "off",
+		"indent": "off"
 	}
 }
