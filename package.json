@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/dillangajarawala/TravelBrain#readme",
   "dependencies": {
-    "@types/node": "^12.7.2",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/node": "^12.7.2",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "eslint": "^6.2.1",
