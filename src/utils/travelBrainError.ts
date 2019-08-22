@@ -68,7 +68,7 @@ export class TravelBrainError {
 
 	/**
  * Convenience method - log this error to console.
- * @return This VarysError
+ * @return This TravelBrainError
  */
 	log(): TravelBrainError {
 		if (config.errorHandling.logToConsole) {
