@@ -4,8 +4,11 @@
   "description": "Node Backend API to serve requests for personal travel data",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+		"clean": "rimraf dist",
+		"clean:all": "npm run clean && npm run clean:test",
+		"build": "node node_modules/typescript/bin/tsc -p tsconfig.json",
+		"start": "npm run build && node dist/index.js",
+		"dev": "node node_modules/nodemon/bin/nodemon.js -e ts,json --exec \"npm run start\""
   },
   "repository": {
     "type": "git",
