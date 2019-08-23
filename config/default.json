@@ -5,5 +5,15 @@
     "errorHandling": {
         "includeInternalErrors": true,
         "logToConsole": true
-	}
+    },
+    
+    "database": {
+        "url": "mongodb+srv://travelbrain:DaqyFCCsjPFdYpJa@travelbraindev-3k0hc.mongodb.net/test?retryWrites=true&w=majority",
+        "options": {
+			"useNewUrlParser": true
+		},
+        "collections": {
+            "city": "cities"
+        }
+    }
 }
