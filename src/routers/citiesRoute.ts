@@ -57,6 +57,40 @@ class CitiesRoute {
 		});
 
 		/**
+		 * GET - retrieve list of cities
+		 */
+		this.citiesRouter.get('/all', (req, res): void => {
+			citiesController.getAllCities(
+				(err: TravelBrainError, success): void => {
+					if (err) {
+						res.status(err.getHttpStatus()).json(err);
+					} else {
+						res.json(success);
+					}
+				}
+			);
+		});
+
+		/**
+		 * GET - search cities based on a given param and value
+		 */
+		this.citiesRouter.get('/search', (req, res): void => {
+			const { param } = req.body;
+			const { value } = req.body;
+
+			citiesController.searchCities(
+				param, value,
+				(err: TravelBrainError, success): void => {
+					if (err) {
+						res.status(err.getHttpStatus()).json(err);
+					} else {
+						res.json(success);
+					}
+				}
+			);
+		});
+
+		/**
 		 * POST - add a new city
 		 */
 		this.citiesRouter.post('/new', (req, res): void => {
@@ -134,40 +168,6 @@ class CitiesRoute {
 
 			citiesController.wipeCityDetails(
 				Number.parseInt(cityId, 10),
-				(err: TravelBrainError, success): void => {
-					if (err) {
-						res.status(err.getHttpStatus()).json(err);
-					} else {
-						res.json(success);
-					}
-				}
-			);
-		});
-
-		/**
-		 * GET - retrieve list of cities
-		 */
-		this.citiesRouter.get('/all', (req, res): void => {
-			citiesController.getAllCities(
-				(err: TravelBrainError, success): void => {
-					if (err) {
-						res.status(err.getHttpStatus()).json(err);
-					} else {
-						res.json(success);
-					}
-				}
-			);
-		});
-
-		/**
-		 * GET - search cities based on a given param and value
-		 */
-		this.citiesRouter.get('/search', (req, res): void => {
-			const { param } = req.body;
-			const { value } = req.body;
-
-			citiesController.searchCities(
-				param, value,
 				(err: TravelBrainError, success): void => {
 					if (err) {
 						res.status(err.getHttpStatus()).json(err);
