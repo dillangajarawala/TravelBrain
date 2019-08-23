@@ -10,7 +10,7 @@ import { HttpStatus, MappedErrors } from './mappedErrors';
 /**
  * List of mapped errors that resolve to Http Status 500 (Server Error).
  */
-const serverErrors = [MappedErrors.GENERAL.UNEXPECTED_ERROR].map(v => v.code);
+const serverErrors = [MappedErrors.GENERAL.UNEXPECTED_ERROR].map((v) => v.code);
 
 /**
  * Represents an error in the system. See MappedErrors for more info on errors.
