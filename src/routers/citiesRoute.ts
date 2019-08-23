@@ -6,6 +6,7 @@ import { citiesController } from '../controllers/cities';
 
 import { TravelBrainError } from '../utils/travelBrainError';
 import { MappedErrors } from '../utils/mappedErrors';
+import { loogger } from '../services/logger';
 
 /**
  * A class representing all '/...' routes
@@ -77,6 +78,15 @@ class CitiesRoute {
 		this.citiesRouter.get('/search', (req, res): void => {
 			const { param } = req.body;
 			const { value } = req.body;
+
+			if (typeof param === 'undefined') {
+				const error = new TravelBrainError(MappedErrors.GENERAL.INVALID_PARAM_DATA, {
+					mess: 'no search params given'
+				});
+
+				res.status(error.getHttpStatus()).json(error);
+				return;
+			}
 
 			citiesController.searchCities(
 				param, value,
