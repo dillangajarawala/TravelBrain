@@ -8,7 +8,7 @@ import * as expressPinoLogger from 'express-pino-logger';
 class Logger {
 	stream: any;
 
-	expressStream: { logger: { info: (arg0: string) => void}};
+	expressStream: { logger: { info: (arg0: string) => void; error: (arg0: string) => void}};
 
 	loogger: any;
 
@@ -23,6 +23,10 @@ class Logger {
 
 	public info(message: string): void {
 		this.expressStream.logger.info(message);
+	}
+
+	public error(message: string): void {
+		this.expressStream.logger.error(message);
 	}
 }
 
