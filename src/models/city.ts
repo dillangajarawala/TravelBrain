@@ -9,7 +9,7 @@ export interface ICity {
 	name: string;
 	country: string;
 	state: string;
-	visitedDates: Date[];
+	mostRecentVisit: Date;
 	numSightsSeen: number;
 	numRestaurantsEaten: number;
 }
@@ -36,8 +36,8 @@ export const CitySchema: mongoose.Schema = new mongoose.Schema({
 		type: String,
 		required: false
 	},
-	visitedDates: {
-		type: [Date],
+	mostRecentVisit: {
+		type: Date,
 		required: true
 	},
 	numSightsSeen: {
