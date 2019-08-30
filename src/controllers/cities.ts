@@ -7,6 +7,8 @@ import * as config from 'config';
 import * as _ from 'lodash';
 import { loogger } from '../services/logger';
 
+import { City } from '../models/city';
+
 /**
  * @class CitiesController
  */
@@ -17,7 +19,10 @@ class CitiesController {
 
 	public revisitCityMemory = (cityId: number, cb: Function): void => {
 		console.log(cityId);
-		cb(null, { success: 'request for city recieved' });
+		City.findOne({ cityId }, (findErr, record): void => {
+			cb(null, record);
+		});
+		// cb(null, { success: 'request for city recieved' });
 	}
 
 	public travelToCity = (cityDetails: Object, cb: Function): void => {

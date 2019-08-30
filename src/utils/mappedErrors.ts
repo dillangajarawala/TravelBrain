@@ -14,9 +14,17 @@ const generalErrors = {
 	}
 };
 
+const mongoErrors = {
+	INSERTION_ERROR: {
+		code: 2000,
+		message: 'Failed MongoDB insertion.'
+	}
+};
+
 
 export const MappedErrors = {
-	GENERAL: generalErrors
+	GENERAL: generalErrors,
+	MONGO: mongoErrors
 };
 
 /**
