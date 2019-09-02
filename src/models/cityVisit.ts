@@ -8,6 +8,9 @@ import { ICity } from './city';
 export interface ICityVisit {
 	city: ICity;
 	visitDate: Date;
+	notes: string;
+	numSightsSeen: number;
+	numRestaurantsSeen: number;
 }
 
 interface ICityVisitModel extends ICityVisit, mongoose.Document { }
@@ -22,6 +25,18 @@ export const CityVisitSchema: mongoose.Schema = new mongoose.Schema({
 	},
 	visitDate: {
 		type: Date,
+		required: true
+	},
+	notes: {
+		type: String,
+		required: false
+	},
+	numSightsSeen: {
+		type: Number,
+		required: true
+	},
+	numRestaurantsEaten: {
+		type: Number,
 		required: true
 	}
 }, {
