@@ -82,7 +82,17 @@ class CitiesController {
 
 	public wipeCityDetails = (cityId: number, cb: Function): void => {
 		console.log(cityId);
-		cb(null, { deleted: 'yeet' });
+		City.deleteOne({ cityId }, (deleteErr): void => {
+			if (deleteErr) {
+				console.log('Unable to delete city record');
+				const deletionError = new TravelBrainError(MappedErrors.MONGO.DELETION_ERROR, {
+					mess: `Error wiping the city with id ${cityId} off the map`
+				});
+				cb(deletionError, { deleted: 'Unable to delete city record' });
+			} else {
+				cb(null, { deleted: 'City Record Deleted' });
+			}
+		});
 	}
 
 	public getAllCities = (cb: Function): void => {

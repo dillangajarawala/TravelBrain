@@ -18,6 +18,10 @@ const mongoErrors = {
 	INSERTION_ERROR: {
 		code: 2000,
 		message: 'Failed MongoDB insertion.'
+	},
+	DELETION_ERROR: {
+		code: 2001,
+		message: 'Failed MongoDB deletion.'
 	}
 };
 
