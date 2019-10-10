@@ -1,10 +1,6 @@
 /**
  * @module Controllers
  */ /** */
-
-import * as mongoose from 'mongoose';
-import * as config from 'config';
-import * as _ from 'lodash';
 import { loogger } from '../services/logger';
 
 import { City } from '../models/city';

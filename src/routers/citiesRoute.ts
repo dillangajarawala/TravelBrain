@@ -6,7 +6,6 @@ import { citiesController } from '../controllers/cities';
 
 import { TravelBrainError } from '../utils/travelBrainError';
 import { MappedErrors } from '../utils/mappedErrors';
-import { loogger } from '../services/logger';
 
 /**
  * A class representing all '/...' routes
