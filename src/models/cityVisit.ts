@@ -11,7 +11,7 @@ export interface ICityVisit {
 	endDate: Date;
 	notes: string;
 	numSightsSeen: number;
-	numRestaurantsSeen: number;
+	numRestaurantsEaten: number;
 }
 
 interface ICityVisitModel extends ICityVisit, mongoose.Document { }
@@ -20,7 +20,7 @@ interface ICityVisitModel extends ICityVisit, mongoose.Document { }
  * CityVisit Schema - Mongoose document.
  */
 export const CityVisitSchema: mongoose.Schema = new mongoose.Schema({
-	cityId: {
+	city: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true
 	},
