@@ -7,7 +7,8 @@ import { ICity } from './city';
 
 export interface ICityVisit {
 	city: ICity;
-	visitDate: Date;
+	startDate: Date;
+	endDate: Date;
 	notes: string;
 	numSightsSeen: number;
 	numRestaurantsSeen: number;
@@ -23,7 +24,11 @@ export const CityVisitSchema: mongoose.Schema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		required: true
 	},
-	visitDate: {
+	startDate: {
+		type: Date,
+		required: true
+	},
+	endDate: {
 		type: Date,
 		required: true
 	},
