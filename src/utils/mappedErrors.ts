@@ -22,6 +22,10 @@ const mongoErrors = {
 	DELETION_ERROR: {
 		code: 2001,
 		message: 'Failed MongoDB deletion.'
+	},
+	FIND_ERROR: {
+		code: 2002,
+		message: 'Failed MongoDB read operation'
 	}
 };
 

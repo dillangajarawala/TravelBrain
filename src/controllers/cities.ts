@@ -20,7 +20,7 @@ class CitiesController {
 			.then((city): void => {
 				this.latestCityId = city.cityId;
 			})
-			.catch((err): void => {
+			.catch((): void => {
 				this.latestCityId = 1;
 			});
 		loogger.info('Instantiating cities Controller');
@@ -29,7 +29,15 @@ class CitiesController {
 	public revisitCityMemory = (cityId: number, cb: Function): void => {
 		console.log(cityId);
 		City.findOne({ cityId }, (findErr, record): void => {
-			cb(null, record);
+			if (findErr) {
+				console.log(findErr);
+				const findError = new TravelBrainError(MappedErrors.MONGO.FIND_ERROR, {
+					mess: 'Unable to find city record'
+				});
+				cb(findError, { foundCity: 'nope' });
+			} else {
+				cb(null, record);
+			}
 		});
 	}
 
