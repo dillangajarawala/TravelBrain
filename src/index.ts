@@ -18,6 +18,7 @@ mongoose.connect(config.database.url, config.database.options)
 	})
 	.catch((): void => {
 		loogger.error('Error connecting to mongo');
+		process.exit(1);
 	});
 
 application.listen();
