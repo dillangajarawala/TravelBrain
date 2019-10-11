@@ -3,10 +3,9 @@
  */ /** */
 
 import * as mongoose from 'mongoose';
-import { ICity } from './city';
 
 export interface ICityVisit {
-	city: ICity;
+	cityId: number;
 	startDate: Date;
 	endDate: Date;
 	notes: string;
@@ -20,8 +19,8 @@ interface ICityVisitModel extends ICityVisit, mongoose.Document { }
  * CityVisit Schema - Mongoose document.
  */
 export const CityVisitSchema: mongoose.Schema = new mongoose.Schema({
-	city: {
-		type: mongoose.Schema.Types.ObjectId,
+	cityId: {
+		type: Number,
 		required: true
 	},
 	startDate: {

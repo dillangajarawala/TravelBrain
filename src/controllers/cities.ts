@@ -1,8 +1,9 @@
 /**
  * @module Controllers
  */ /** */
-import { loogger } from '../services/logger';
+import * as _ from 'lodash';
 
+import { loogger } from '../services/logger';
 import { City, ICity } from '../models/city';
 import { ICityDetails } from '../models/interfaces/ICityDetails';
 import { MappedErrors } from '../utils/mappedErrors';
@@ -21,28 +22,27 @@ class CitiesController {
 				this.latestCityId = city.cityId;
 			})
 			.catch((): void => {
-				this.latestCityId = 1;
+				this.latestCityId = 0;
 			});
 		loogger.info('Instantiating cities Controller');
 	}
 
 	public revisitCityMemory = (cityId: number, cb: Function): void => {
-		console.log(cityId);
 		City.findOne({ cityId }, (findErr, record): void => {
 			if (findErr) {
-				console.log(findErr);
+				loogger.error(findErr);
 				const findError = new TravelBrainError(MappedErrors.MONGO.FIND_ERROR, {
 					mess: 'Unable to find city record'
 				});
 				cb(findError, { foundCity: 'nope' });
 			} else {
-				cb(null, record);
+				const neededAttrs = _.pick(record, ['cityId', 'name', 'country', 'state', 'numRestaurantsEaten', 'numSightsSeen']);
+				cb(null, neededAttrs);
 			}
 		});
 	}
 
 	public travelToCity = (cityDetails: ICityDetails, cb: Function): void => {
-		console.log(this.latestCityId);
 		const cityRecord: ICity = {
 			cityId: this.latestCityId + 1,
 			name: cityDetails.name,
@@ -54,13 +54,14 @@ class CitiesController {
 		};
 		City.create(cityRecord, (cityErr, insertedCityRecord): void => {
 			if (cityErr) {
+				loogger.error(cityErr);
 				const insertionError = new TravelBrainError(MappedErrors.MONGO.INSERTION_ERROR, {
 					mess: 'Unable to insert record for new city'
 				});
 				cb(insertionError, { insertedCity: 'nope' });
 			} else {
 				const newCityVisit: ICityVisit = {
-					city: insertedCityRecord._id,
+					cityId: this.latestCityId + 1,
 					startDate: cityDetails.startDate,
 					endDate: cityDetails.endDate,
 					notes: cityDetails.notes,
@@ -69,13 +70,14 @@ class CitiesController {
 				};
 				CityVisit.create(newCityVisit, (cityVisitErr): void => {
 					if (cityVisitErr) {
-						console.log(cityVisitErr);
+						loogger.error(cityVisitErr);
 						const insertionError = new TravelBrainError(MappedErrors.MONGO.INSERTION_ERROR, {
 							mess: 'Unable to insert record for new city visit'
 						});
 						cb(insertionError, { insertedVisit: 'nope' });
 					} else {
 						cb(null, { inserted: 'success' });
+						this.latestCityId = this.latestCityId + 1;
 					}
 				});
 			}
@@ -89,16 +91,21 @@ class CitiesController {
 	}
 
 	public wipeCityDetails = (cityId: number, cb: Function): void => {
-		console.log(cityId);
 		City.deleteOne({ cityId }, (deleteErr): void => {
 			if (deleteErr) {
-				console.log('Unable to delete city record');
+				loogger.error('Unable to delete city record');
 				const deletionError = new TravelBrainError(MappedErrors.MONGO.DELETION_ERROR, {
 					mess: `Error wiping the city with id ${cityId} off the map`
 				});
 				cb(deletionError, { deleted: 'Unable to delete city record' });
 			} else {
-				cb(null, { deleted: 'City Record Deleted' });
+				CityVisit.deleteMany({ cityId }, (deleteVisitsErr): void => {
+					if (deleteVisitsErr) {
+						loogger.error('Unable to delete associated city visits');
+					} else {
+						cb(null, { deleted: 'City Record and Associated Visits Deleted' });
+					}
+				});
 			}
 		});
 	}
