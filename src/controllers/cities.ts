@@ -8,7 +8,6 @@ import { City, ICity } from '../models/city';
 import { ICityDetails } from '../models/interfaces/ICityDetails';
 import { MappedErrors } from '../utils/mappedErrors';
 import { TravelBrainError } from '../utils/travelBrainError';
-import { ICityVisit, CityVisit } from '../models/cityVisit';
 
 /**
  * @class CitiesController
@@ -60,26 +59,7 @@ class CitiesController {
 				});
 				cb(insertionError, { insertedCity: 'nope' });
 			} else {
-				const newCityVisit: ICityVisit = {
-					cityId: this.latestCityId + 1,
-					startDate: cityDetails.startDate,
-					endDate: cityDetails.endDate,
-					notes: cityDetails.notes,
-					numSightsSeen: 0,
-					numRestaurantsEaten: 0
-				};
-				CityVisit.create(newCityVisit, (cityVisitErr): void => {
-					if (cityVisitErr) {
-						loogger.error(cityVisitErr);
-						const insertionError = new TravelBrainError(MappedErrors.MONGO.INSERTION_ERROR, {
-							mess: 'Unable to insert record for new city visit'
-						});
-						cb(insertionError, { insertedVisit: 'nope' });
-					} else {
-						cb(null, { inserted: 'success' });
-						this.latestCityId = this.latestCityId + 1;
-					}
-				});
+				// do some city visit code here
 			}
 		});
 	}
@@ -99,13 +79,7 @@ class CitiesController {
 				});
 				cb(deletionError, { deleted: 'Unable to delete city record' });
 			} else {
-				CityVisit.deleteMany({ cityId }, (deleteVisitsErr): void => {
-					if (deleteVisitsErr) {
-						loogger.error('Unable to delete associated city visits');
-					} else {
-						cb(null, { deleted: 'City Record and Associated Visits Deleted' });
-					}
-				});
+				// delete city visits here
 			}
 		});
 	}
