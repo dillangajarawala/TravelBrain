@@ -28,7 +28,7 @@
     "express": "^4.17.1",
     "express-pino-logger": "^4.0.0",
     "lodash": "^4.17.15",
-    "mongoose": "^5.6.10",
+    "mongoose": "^5.7.5",
     "mongoose-autopopulate": "^0.9.1",
     "morgan": "^1.9.1",
     "mustache": "^3.0.2",
