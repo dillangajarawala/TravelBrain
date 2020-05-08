@@ -15,6 +15,8 @@ import { TravelBrainError } from '../utils/travelBrainError';
 class CitiesController {
 	latestCityId: number;
 
+	cityFields: string[];
+
 	constructor() {
 		City.findOne().sort({ cityId: -1 })
 			.then((city): void => {
@@ -23,6 +25,8 @@ class CitiesController {
 			.catch((): void => {
 				this.latestCityId = 0;
 			});
+
+		this.cityFields = ['cityId', 'name', 'country', 'state', 'mostRecentVisit', 'numRestaurantsEaten', 'numSightsSeen'];
 		loogger.info('Instantiating cities Controller');
 	}
 
@@ -35,7 +39,7 @@ class CitiesController {
 				});
 				cb(findError, { foundCity: 'nope' });
 			} else {
-				const neededAttrs = _.pick(record, ['cityId', 'name', 'country', 'state', 'numRestaurantsEaten', 'numSightsSeen']);
+				const neededAttrs: ICity = _.pick(record, this.cityFields);
 				cb(null, neededAttrs);
 			}
 		});
@@ -86,6 +90,24 @@ class CitiesController {
 
 	public getAllCities = (cb: Function): void => {
 		cb(null, {});
+	}
+
+	public getRecentCities = (cb: Function): void => {
+		City.find({ sort: { mostRecentVisit: -1 }, limit: 10 }, (findErr, records): void => {
+			if (findErr) {
+				loogger.error('Error trying to find 10 most recent cities');
+				const findError = new TravelBrainError(MappedErrors.MONGO.FIND_ERROR, {
+					mess: 'Unable to find 10 most recently visited cities'
+				});
+				cb(findError, { found: 'nope' });
+			} else {
+				const cities: ICity[] = [];
+				for (let i = 0; i < records.length; i += 1) {
+					cities.push(_.pick(records[i], this.cityFields));
+				}
+				cb(null, { cities });
+			}
+		});
 	}
 
 	public searchCities = (param: string, value: string, cb: Function): void => {

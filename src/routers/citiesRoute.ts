@@ -72,6 +72,21 @@ class CitiesRoute {
 		});
 
 		/**
+		 * GET - retrieve list of 10 most recent cities
+		 */
+		this.citiesRouter.get('/recent', (req, res): void => {
+			citiesController.getRecentCities(
+				(err: TravelBrainError, success): void => {
+					if (err) {
+						res.status(err.getHttpStatus()).json(err);
+					} else {
+						res.json(success);
+					}
+				}
+			);
+		});
+
+		/**
 		 * GET - search cities based on a given param and value
 		 */
 		this.citiesRouter.get('/search', (req, res): void => {
