@@ -12,6 +12,7 @@ import * as http from 'http';
 
 import { citiesRouter } from './routers/citiesRoute';
 import { loogger } from './services/logger';
+import { cityVisitsRouter } from './routers/cityVisitsRoute';
 
 export const app: express.Application = express();
 
@@ -73,6 +74,7 @@ class TravelBrain {
 	private loadRoutes(): void {
 		// user router
 		app.use('/api/cities', citiesRouter);
+		app.use('/api/cityvisits', cityVisitsRouter);
 
 		// Add a route for root for the KeepAlive thing.
 		app.get('/', (req, res, next): void => {
