@@ -8,6 +8,7 @@ import { City, ICity } from '../models/city';
 import { ICityDetails } from '../models/interfaces/ICityDetails';
 import { MappedErrors } from '../utils/mappedErrors';
 import { TravelBrainError } from '../utils/travelBrainError';
+import { cityVisitsController } from './cityvisits';
 
 /**
  * @class CitiesController
@@ -63,6 +64,7 @@ class CitiesController {
 				});
 				cb(insertionError, { insertedCity: 'nope' });
 			} else {
+				cityVisitsController.newVisit(insertedCityRecord._id, cityDetails, cb);
 				// do some city visit code here
 			}
 		});
