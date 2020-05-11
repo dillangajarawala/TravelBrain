@@ -25,7 +25,11 @@ const mongoErrors = {
 	},
 	FIND_ERROR: {
 		code: 2002,
-		message: 'Failed MongoDB read operation'
+		message: 'Failed MongoDB read operation.'
+	},
+	UPDATE_ERROR: {
+		code: 2003,
+		message: 'Failed MongoDB update operation.'
 	}
 };
 
