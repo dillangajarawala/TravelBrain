@@ -117,7 +117,7 @@ class CitiesRoute {
 		/**
 		 * POST - add a new city
 		 */
-		this.citiesRouter.post('/new', (req, res): void => {
+		this.citiesRouter.post('/create', (req, res): void => {
 			if (req.body.length === 0) {
 				const error = new TravelBrainError(MappedErrors.GENERAL.INVALID_PARAM_DATA, {
 					mess: 'POST body is empty.'
@@ -142,7 +142,7 @@ class CitiesRoute {
 		/**
 		 * PUT - update data for a city
 		 */
-		this.citiesRouter.post('/edit/:cityId', (req, res): void => {
+		this.citiesRouter.put('/edit/:cityId', (req, res): void => {
 			const { cityId } = req.params;
 
 			if (req.body.length === 0) {

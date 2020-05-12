@@ -116,7 +116,7 @@ class CityVisitsRoute {
 		/**
 		 * POST - add a new city visit
 		 */
-		this.cityVisitsRouter.post('/new', (req, res): void => {
+		this.cityVisitsRouter.post('/create', (req, res): void => {
 			if (req.body.length === 0) {
 				const error = new TravelBrainError(MappedErrors.GENERAL.INVALID_PARAM_DATA, {
 					mess: 'POST body is empty.'
@@ -127,8 +127,10 @@ class CityVisitsRoute {
 			}
 
 			cityVisitsController.newVisit(
+				req.cityRefId,
 				req.cityId,
 				req.body,
+				false,
 				(err: TravelBrainError, success): void => {
 					if (err) {
 						res.status(err.getHttpStatus()).json(err);
@@ -163,7 +165,7 @@ class CityVisitsRoute {
 				return;
 			}
 
-			cityVisitsController.changeCityVisitDetails(
+			cityVisitsController.updateCityVisit(
 				req.body, Number.parseInt(cityVisitId, 10),
 				(err: TravelBrainError, success): void => {
 					if (err) {
