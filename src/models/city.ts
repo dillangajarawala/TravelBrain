@@ -22,11 +22,13 @@ interface ICityModel extends ICity, mongoose.Document { }
 export const CitySchema: mongoose.Schema = new mongoose.Schema({
 	cityId: {
 		type: Number,
-		required: true
+		required: true,
+		unique: true
 	},
 	name: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	country: {
 		type: String,
@@ -38,7 +40,7 @@ export const CitySchema: mongoose.Schema = new mongoose.Schema({
 	},
 	mostRecentVisit: {
 		type: Date,
-		required: true
+		required: false
 	},
 	numSightsSeen: {
 		type: Number,

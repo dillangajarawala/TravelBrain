@@ -8,6 +8,7 @@ import { ICity } from './city';
 export interface ICityVisit {
 	cityVisitId: number;
 	city: ICity;
+	cityId: number;
 	startDate: Date;
 	endDate: Date;
 	notes: string;
@@ -28,6 +29,10 @@ export const CityVisitSchema: mongoose.Schema = new mongoose.Schema({
 	city: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'City',
+		required: true
+	},
+	cityId: {
+		type: Number,
 		required: true
 	},
 	startDate: {
