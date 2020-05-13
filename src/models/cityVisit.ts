@@ -63,6 +63,6 @@ export const CityVisitSchema: mongoose.Schema = new mongoose.Schema({
 });
 
 /**
- * The City Mongoose Model.
+ * The CityVisit Mongoose Model.
  */
 export const CityVisit: mongoose.Model<ICityVisitModel> = mongoose.model<ICityVisitModel>('CityVisit', CityVisitSchema, 'cityvisits');
