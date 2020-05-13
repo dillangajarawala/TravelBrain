@@ -4,12 +4,15 @@
 
 import * as mongoose from 'mongoose';
 import { IRestaurant } from './restaurant';
+import { ICityVisit } from './cityVisit';
 
 export interface IRestaurantVisit {
 	restaurantVisitId: number;
 	restaurant: IRestaurant;
 	restaurantId: number;
 	visitDate: Date;
+	fromCity: boolean;
+	cityVisit: ICityVisit;
 	notes: string;
 }
 
@@ -35,6 +38,15 @@ export const RestaurantVisitSchema: mongoose.Schema = new mongoose.Schema({
 	visitDate: {
 		type: Date,
 		required: true
+	},
+	fromCity: {
+		type: Boolean,
+		required: true
+	},
+	cityVisit: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'CityVisit',
+		required: false
 	},
 	notes: {
 		type: String,

@@ -3,13 +3,10 @@
  */ /** */
 
 import * as mongoose from 'mongoose';
-import { ICity } from './city';
 
 export interface IRestaurant {
 	restaurantId: number;
 	name: string;
-	fromCity: boolean;
-	city: ICity;
 	michelin: boolean;
 	michelinStars: number;
 	cuisine: string;
@@ -28,15 +25,6 @@ export const ResturantSchema: mongoose.Schema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true
-	},
-	fromCity: {
-		type: Boolean,
-		required: true
-	},
-	city: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'City',
-		required: false
 	},
 	michelin: {
 		type: Boolean,
