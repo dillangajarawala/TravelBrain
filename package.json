@@ -27,7 +27,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-pino-logger": "^4.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mongoose": "^5.7.5",
     "mongoose-autopopulate": "^0.9.1",
     "morgan": "^1.9.1",
