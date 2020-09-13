@@ -23,28 +23,28 @@
   "homepage": "https://github.com/dillangajarawala/TravelBrain#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "config": "^3.2.2",
+    "config": "^3.3.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-pino-logger": "^4.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mongoose": "^5.7.5",
     "mongoose-autopopulate": "^0.9.1",
-    "morgan": "^1.9.1",
-    "mustache": "^3.0.2",
-    "pino": "^5.13.2",
-    "pino-pretty": "^3.2.1"
+    "morgan": "^1.10.0",
+    "mustache": "^3.2.1",
+    "pino": "^5.17.0",
+    "pino-pretty": "^3.6.1"
   },
   "devDependencies": {
-    "@types/mongoose": "^5.5.13",
-    "@types/node": "^12.7.2",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
-    "eslint": "^6.2.1",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "nodemon": "^1.19.1",
-    "rimraf": "^3.0.0",
-    "typescript": "^3.5.3"
+    "@types/mongoose": "^5.7.36",
+    "@types/node": "^12.12.58",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^1.19.4",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.7"
   }
 }
