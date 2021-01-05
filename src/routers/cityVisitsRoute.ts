@@ -127,9 +127,9 @@ class CityVisitsRoute {
 			}
 
 			cityVisitsController.newVisit(
-				req.cityRefId,
-				req.cityId,
-				req.body,
+				req.body.cityRefId,
+				req.body.cityId,
+				req.body.visit,
 				false,
 				(err: TravelBrainError, success): void => {
 					if (err) {

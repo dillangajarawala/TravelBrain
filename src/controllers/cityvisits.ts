@@ -10,7 +10,6 @@ import { MappedErrors } from '../utils/mappedErrors';
 import { TravelBrainError } from '../utils/travelBrainError';
 import { City } from '../models/city';
 
-
 /**
  * @class CityVisitsController
  */
@@ -55,7 +54,7 @@ class CityVisitsController {
 	}
 
 	public newVisit = (cityRefId: Types.ObjectId, cityId: number, visit: ICityDetails, newCity: boolean, cb: Function): void => {
-		const visitRecord = {
+		const visitRecord = new CityVisit({
 			cityVisitId: this.latestCityVisitId + 1,
 			city: cityRefId,
 			cityId,
@@ -64,12 +63,12 @@ class CityVisitsController {
 			notes: visit.notes,
 			numRestaurantsEaten: 0,
 			numSightsSeen: 0
-		};
+		});
 		const insertedBoth = { insertedAndUpdatedCity: 'success', insertedVisit: 'success' };
 		const insertedOne = { updatedCity: 'success', insertedVisit: 'success' };
 		const didntInsertBoth = { insertedCity: 'success', insertedVisit: 'nope' };
 		const didntInsertAndUpdate = { updatedCity: 'nope', insertedVisit: 'success' };
-		CityVisit.create(visitRecord, (visitErr, insertedVisitRecord: ICityVisit): void => {
+		visitRecord.save((visitErr, insertedVisitRecord): void => {
 			if (visitErr) {
 				loogger.error(visitErr);
 				const insertionError = new TravelBrainError(MappedErrors.MONGO.INSERTION_ERROR, {
@@ -82,7 +81,8 @@ class CityVisitsController {
 				}
 			} else {
 				this.latestCityVisitId += 1;
-				City.findByIdAndUpdate(cityRefId, { mostRecentVisit: visit.endDate }, (updateErr, res): void => {
+				const query = { _id: cityRefId, mostRecentVisit: { $lt: visit.endDate } };
+				City.findOneAndUpdate(query, { mostRecentVisit: visit.endDate }, (updateErr, res): void => {
 					if (updateErr) {
 						loogger.error(updateErr);
 						const updError = new TravelBrainError(MappedErrors.MONGO.UPDATE_ERROR, {
