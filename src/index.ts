@@ -12,6 +12,8 @@ import TravelBrain from './travelbrain'; // eslint-disable-line import/first
 
 const application = new TravelBrain();
 
+mongoose.set('useUnifiedTopology', true);
+
 mongoose.connect(config.database.url, config.database.options)
 	.then((): void => {
 		loogger.info('Mongo Connected');
