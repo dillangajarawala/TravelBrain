@@ -68,7 +68,7 @@ class CityVisitsController {
 		const insertedOne = { updatedCity: 'success', insertedVisit: 'success' };
 		const didntInsertBoth = { insertedCity: 'success', insertedVisit: 'nope' };
 		const didntInsertAndUpdate = { updatedCity: 'nope', insertedVisit: 'success' };
-		visitRecord.save((visitErr, insertedVisitRecord): void => {
+		visitRecord.save((visitErr): void => {
 			if (visitErr) {
 				loogger.error(visitErr);
 				const insertionError = new TravelBrainError(MappedErrors.MONGO.INSERTION_ERROR, {
@@ -82,7 +82,7 @@ class CityVisitsController {
 			} else {
 				this.latestCityVisitId += 1;
 				const query = { _id: cityRefId, mostRecentVisit: { $lt: visit.endDate } };
-				City.findOneAndUpdate(query, { mostRecentVisit: visit.endDate }, (updateErr, res): void => {
+				City.findOneAndUpdate(query, { mostRecentVisit: visit.endDate }, (updateErr): void => {
 					if (updateErr) {
 						loogger.error(updateErr);
 						const updError = new TravelBrainError(MappedErrors.MONGO.UPDATE_ERROR, {
@@ -121,7 +121,7 @@ class CityVisitsController {
 	}
 
 	public updateCityVisit = (cityVisitDetails: Object, cityVisitId: number, cb: Function): void => {
-		CityVisit.replaceOne({ cityVisitId }, cityVisitDetails, (replaceErr, res): void => {
+		CityVisit.replaceOne({ cityVisitId }, cityVisitDetails, (replaceErr): void => {
 			if (replaceErr) {
 				const updateError = new TravelBrainError(MappedErrors.MONGO.UPDATE_ERROR, {
 					mess: `Unable to update record for city visit with id ${cityVisitId}.`
